@@ -4,7 +4,8 @@ const fs = require("fs");
 const pdf = require("pdf-parse");
 const multer = require("multer");
 
-const upload = multer({});
+const { PythonShell } = require("python-shell");
+
 const app = express();
 
 app.use(cors());
@@ -20,21 +21,20 @@ app.post(
     console.log(req.files);
     let dataBuffer = fs.readFileSync(req.files[0].path);
     pdf(dataBuffer).then(function(data) {
-      // number of pages
-      console.log(data.numpages);
-      // number of rendered pages
-      console.log(data.numrender);
-      // PDF info
-      console.log(data.info);
-      // PDF metadata
-      console.log(data.metadata);
-      // PDF.js version
-      // check https://mozilla.github.io/pdf.js/getting_started/
-      console.log(data.version);
       // PDF text
-      console.log(data.text);
+
+      let options = {
+        args: [data.text]
+      };
+
+      PythonShell.run("model.py", options, (err, result) => {
+        if (err) {
+          throw err;
+        }
+        console.log(result);
+        res.json(result);
+      });
     });
-    res.send("Sucess");
   }
 );
 
