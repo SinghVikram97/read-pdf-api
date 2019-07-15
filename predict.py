@@ -3,12 +3,14 @@ import pickle
 
 
 
+import sys
+
 import keras
 
 layers = keras.layers
 models = keras.models
 
-
+inputText=sys.argv[1];
 class NewsClassifier:
     def __init__(self, model_path = "model.h5", vectorizer_path = "tokenizer.pkl", encoder_path = "encoder.pkl"):
         self.model = keras.models.load_model(model_path)
@@ -25,7 +27,7 @@ class NewsClassifier:
 def main():
     predictor = NewsClassifier()
     while True:
-        ip = input()
+        ip = inputText
         if ip == "quit":
             break
         print(predictor.predict(ip))

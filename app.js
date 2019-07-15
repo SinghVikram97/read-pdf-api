@@ -27,7 +27,7 @@ app.post(
         args: [data.text]
       };
 
-      PythonShell.run("model.py", options, (err, result) => {
+      PythonShell.run("predict.py", options, (err, result) => {
         if (err) {
           throw err;
         }
