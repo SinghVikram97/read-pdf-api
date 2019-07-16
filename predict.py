@@ -1,17 +1,23 @@
+import sys
+import numpy as np
+import pandas as pd
+import os
+import itertools
 
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import tensorflow as tf
 import pickle
 
 
-
-import sys
-
-import keras
+from sklearn.preprocessing import LabelEncoder
+from tensorflow import keras
 
 layers = keras.layers
 models = keras.models
 
-inputText=sys.argv[1];
-class NewsClassifier:
+class Classifier:
     def __init__(self, model_path = "model.h5", vectorizer_path = "tokenizer.pkl", encoder_path = "encoder.pkl"):
         self.model = keras.models.load_model(model_path)
         self.vectorizer = pickle.load(open(vectorizer_path, 'rb'))
@@ -25,13 +31,12 @@ class NewsClassifier:
 
 
 def main():
-    predictor = NewsClassifier()
-    while True:
-        ip = inputText
-        if ip == "quit":
-            break
-        print(predictor.predict(ip))
-
+    predictor = Classifier()
+    inputText='code vita';
+    
+    ip=list(inputarg);
+    ip=' '.join(ip);
+    print(predictor.predict(inputText))
+    
 if __name__ == "__main__":
     main()
-
